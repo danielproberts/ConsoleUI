@@ -38,16 +38,52 @@ namespace ConsoleUI
                 menuLength += item.Length;
             }
 
-
-
             var numOfItems = menuOptions.Length;
             //Console.SetCursorPosition((Console.WindowWidth) / numOfItems, Console.CursorTop);
             foreach(var item in menuOptions)
             {
-                menuOutput += item;
+                menuOutput = item;
                 menuOutput = menuOutput.PadRight(menuOutput.Length + (menuLength/numOfItems));
+                Console.BackgroundColor = ConsoleColor.DarkGreen;
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.Write(menuOutput.Substring(0,1));
+                menuOutput = menuOutput.Remove(0, 1);
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                Console.Write(menuOutput);
             }
-            Console.WriteLine(menuOutput);
+            Console.WriteLine();
+        }
+
+        public static void SubBarMenu(string[] menuOptions, string targetMenuOption, string[] subMenuOptions)
+        {
+            var menuLength = 0;
+            var menuOutput = "";
+            foreach (var item in menuOptions)
+            {
+                menuLength += item.Length;
+            }
+
+            var numOfItems = menuOptions.Length;
+            //Console.SetCursorPosition((Console.WindowWidth) / numOfItems, Console.CursorTop);
+            foreach (var item in menuOptions)
+            {
+                menuOutput += item;
+                menuOutput = menuOutput.PadRight(menuOutput.Length + (menuLength / numOfItems));
+            }
+
+            var subMenuCursorLocation = menuOutput.IndexOf(targetMenuOption);
+
+            foreach(var item in subMenuOptions)
+            {
+                //item.PadLeft(item.Length + subMenuCursorLocation);
+                
+                for(int i = 0; i<subMenuCursorLocation; i++)
+                {
+                    Console.Write(" ");
+                }
+                Console.WriteLine(item);
+            }
         }
     }
 }
